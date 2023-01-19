@@ -1,0 +1,19 @@
+{
+    "name": "logadapp/http",
+    "description": "LogadApp HTTP",
+    "type": "library",
+    "require": {
+        "rakit/validation": "^1.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpunit/phpunit": "^9.5",
+        "phpmd/phpmd": "^2.13"
+    },
+    "license": "MIY",
+    "autoload": {
+        "psr-4": {
+            "Logadapp\\Http\\": "src/"
+        }
+    }
+}
