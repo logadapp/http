@@ -6,7 +6,7 @@
 // | @date          : 20 Jan, 2023 12:22AM
 // +------------------------------------------------------------------------+
 
-namespace LogadApp\Http;
+namespace Logadapp\Http\Http;
 
 use Rakit\Validation\Validator;
 
