@@ -6,22 +6,36 @@
 // | @date          : 20 Jan, 2023 12:30AM
 // +------------------------------------------------------------------------+
 
-namespace LogadApp\Http;
+namespace Logadapp\Http;
 
 final class Response
 {
-    private mixed $body;
-    public const HTTP_NOT_FOUND = 404;
-    public const HTTP_FORBIDDEN = 403;
-    public const HTTP_INTERNAL_SERVER_ERROR = 500;
-    public const HTTP_OK = 200;
-    public const HTTP_BAD_REQUEST = 400;
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_NO_CONTENT = 204;
+    const HTTP_NOT_MODIFIED = 304;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_FORBIDDEN = 403;
+    const HTTP_NOT_FOUND = 404;
+    const HTTP_METHOD_NOT_ALLOWED = 405;
+    const HTTP_INTERNAL_SERVER_ERROR = 500;
     /* MORE */
 
-    public function asJson(): Response
+    private string $body = '';
+    private int $status = self::HTTP_OK;
+    private array $headers = [];
+
+    public function withHeader(string $name, string $value): Response
     {
-        header('Content-Type:application/json');
-        echo json_encode($this->body);
+        $this->headers[$name] = $value;
+        return $this;
+    }
+
+    public function json(array $data): Response
+    {
+        $this->setContent(json_encode($data));
+        $this->withHeader('Content-Type', 'application/json');
         return $this;
     }
 
@@ -31,15 +45,20 @@ final class Response
         return $this;
     }
 
-    public function write(string $content): Response
+    public function withStatus(int $statusCode): Response
     {
-        echo $content;
+        $this->status = $statusCode;
         return $this;
     }
 
-    public function withStatus(int $statusCode): Response
+    public function send():void
     {
-        http_response_code($statusCode);
-        return $this;
+        http_response_code($this->status);
+
+        foreach ($this->headers as $name => $value) {
+            header("$name: $value");
+        }
+
+        echo $this->body;
     }
 }
