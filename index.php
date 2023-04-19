@@ -15,27 +15,40 @@ require 'vendor/autoload.php';
 use Logadapp\Http\Response;
 use Logadapp\Http\Request;
 
-$request = (new Request($_GET, $_POST, $_FILES, file_get_contents('php://input')));
+$request = (new Request($_GET, $_POST, $_FILES, file_get_contents('php://input'), getallheaders()));
+
 $response = new Response;
 
-if (!empty($request->getQuery())) {
+// print_r($request->getBody());
+
+$response->json([
+    'error' => false,
+    'method' => $request->getMethod(),
+    'body' => $request->getBody(),
+    'headers' => $request->getHeaders(),
+    'query' => $request->getQueryParams(),
+    'content-type' => $request->getContentType()
+])
+    ->send();
+
+if (!empty($request->getQueryParams())) {
     $response
-        ->setContent([
+        ->json([
             'error' => false,
             'message' => 'It\'s all good',
-            'data' => $request->getQuery()
+            'data' => $request->getQueryParams()
         ])
-        ->asJson()
         // Direct status code can be used. But I recommend this
-        ->withStatus(Response::HTTP_OK);
+        ->withStatus(Response::HTTP_OK)
+        ->send();
 } else {
     $response
-        ->setContent([
+        ->json([
             'error' => true,
             'message' => 'Please add query parameter(s)',
             'data' => []
         ])
-        ->asJson()
         // Direct status code can be used. But I recommend this
-        ->withStatus(Response::HTTP_BAD_REQUEST);
+        ->withStatus(Response::HTTP_BAD_REQUEST)
+        ->send();
 }
