@@ -6,7 +6,7 @@
   <p align="center">
     <a href="https://github.com/logadapp/http/issues">Report Bug</a>
     ·
-    <a href="./issues">Request Feature</a>
+    <a href="https://github.com/logadapp/http/issues">Request Feature</a>
   </p>
 </div>
 
