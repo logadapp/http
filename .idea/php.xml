@@ -5,6 +5,20 @@
       <MessDetectorConfiguration tool_path="$PROJECT_DIR$/vendor/bin/phpmd" />
     </phpmd_settings>
   </component>
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="codeSize" value="true" />
+    <option name="design" value="true" />
+    <option name="naming" value="true" />
+    <option name="unusedCode" value="true" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration beautifier_path="$PROJECT_DIR$/vendor/bin/phpcbf" standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="$PROJECT_DIR$/vendor/bin/phpcs" />
@@ -60,9 +74,15 @@
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
     </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
 </project>
