@@ -70,9 +70,9 @@ if (!empty($request->getQueryParams())) {
     Http::build([
         'url' => 'https://www.logad.net',
     ])
-    ->setBody('Hello World')
-    ->setHeaders([
-        'Content-Type' => 'text/plain'
-    ])
+        ->setBody('Hello World')
+        ->setHeaders([
+            'Content-Type' => 'text/plain'
+        ])
         ->send();
 }
