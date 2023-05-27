@@ -10,11 +10,13 @@ namespace Logadapp\Http;
 
 final class Http
 {
+    private string $requestError = '';
+
     private array $responseHeaders;
 
-    private string|bool $responseBody;
+    private string $responseBody;
 
-    private int $timeout;
+    private int $timeout = 30;
 
     private string $method;
 
@@ -204,18 +206,21 @@ final class Http
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->body);
         }
 
-        $this->responseBody = curl_exec($curl);
-        $this->responseHeaders = curl_getinfo($curl, CURLINFO_HEADER_OUT);
+        $responseBody = curl_exec($curl);
+        $responseHeaders = curl_getinfo($curl, CURLINFO_HEADER_OUT);
+        $this->requestError = curl_error($curl);
         curl_close($curl);
 
+        $this->responseBody = ($responseBody !== false) ? $responseBody : '';
+        $this->responseHeaders = ($responseHeaders !== false) ? $responseHeaders : [];
         return $this;
     }
 
     /**
      * Get the response body from the HTTP request.
-     * @return string|bool Returns the response body.
+     * @return string Returns the response body.
      */
-    public function getResponseBody(): string|bool
+    public function getResponseBody(): string
     {
         return $this->responseBody;
     }
@@ -227,5 +232,10 @@ final class Http
     public function getResponseHeaders(): array
     {
         return $this->responseHeaders;
+    }
+
+    public function getRequestError():string
+    {
+        return $this->requestError;
     }
 }
