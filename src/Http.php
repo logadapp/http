@@ -30,7 +30,7 @@ final class Http
      * Http constructor.
      * @param string $url The URL for the HTTP request.
      * @param string $method The HTTP request method.
-     * @param mixed $body The request body for the HTTP request.
+     * @param string $body The request body for the HTTP request.
      * @param array $headers The headers for the HTTP request.
      */
     public function __construct(string $url = '', string $method = 'GET', string $body = '', array $headers = [])
@@ -117,6 +117,40 @@ final class Http
     }
 
     /**
+     * Set a header for the HTTP request.
+     * @param string $name The name of the header.
+     * @param string $value The value of the header.
+     * @return Http Returns the Http instance.
+     */
+    public function withHeader(string $name, string $value): self
+    {
+        $this->headers[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Set content-type and accept headers as json
+     * @return Http Returns the Http instance.
+     */
+    public function isJson(): self
+    {
+        $this->withHeader('Accept', 'application/json');
+        $this->withHeader('Content-Type', 'application/json');
+        return $this;
+    }
+
+    /**
+     * Set the bearer token for the HTTP request.
+     * @param string $token
+     * @return Http Returns the Http instance.
+     */
+    public function withToken(string $token): self
+    {
+        $this->headers['Authorization'] = 'Bearer ' . $token;
+        return $this;
+    }
+
+    /**
      * Set the headers for the HTTP request.
      * @param array $headers The headers for the HTTP request.
      * @return Http Returns the Http instance.
@@ -199,7 +233,11 @@ final class Http
         ]);
 
         if (!empty($this->headers)) {
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $this->headers);
+            $formattedHeaders = [];
+            foreach ($this->headers as $name => $value) {
+                $formattedHeaders[] = "$name: $value";
+            }
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $formattedHeaders);
         }
 
         if ($this->method === 'POST' && !empty($this->body)) {
