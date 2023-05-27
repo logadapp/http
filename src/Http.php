@@ -10,7 +10,7 @@ namespace Logadapp\Http;
 
 final class Http
 {
-    public array $responseHeaders;
+    private array $responseHeaders;
 
     private string|bool $responseBody;
 
@@ -20,7 +20,7 @@ final class Http
 
     private string $url;
 
-    private mixed $body;
+    private string $body;
 
     private array $headers;
 
@@ -31,7 +31,7 @@ final class Http
      * @param mixed $body The request body for the HTTP request.
      * @param array $headers The headers for the HTTP request.
      */
-    public function __construct(string $url, string $method, mixed $body, array $headers)
+    public function __construct(string $url = '', string $method = 'GET', string $body = '', array $headers = [])
     {
         $this->setUrl($url);
         $this->method = $method;
@@ -66,6 +66,15 @@ final class Http
     }
 
     /**
+     * Get the URL for the HTTP request.
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
      * Set the timeout for the HTTP request.
      * @param int $timeout The timeout value for the HTTP request.
      * @return Http Returns the Http instance.
@@ -77,14 +86,32 @@ final class Http
     }
 
     /**
+     * Get the timeout for the HTTP request.
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
+    }
+
+    /**
      * Set the request body for the HTTP request.
      * @param mixed $body The request body for the HTTP request.
      * @return Http Returns the Http instance.
      */
-    public function setBody(mixed $body): self
+    public function setBody(string $body): self
     {
         $this->body = $body;
         return $this;
+    }
+
+    /**
+     * Get the request body for the HTTP request.
+     * @return mixed
+     */
+    public function getBody(): string
+    {
+        return $this->body;
     }
 
     /**
@@ -96,6 +123,39 @@ final class Http
     {
         $this->headers = $headers;
         return $this;
+    }
+
+    /**
+     * Get the headers for the HTTP request.
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * Set the request method for the HTTP request.
+     * @param string $method
+     * @return $this
+     */
+    public function setMethod(string $method): self
+    {
+        if (!in_array($method, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'])) {
+            throw new \InvalidArgumentException('Invalid HTTP method.');
+        }
+
+        $this->method = $method;
+        return $this;
+    }
+
+    /**
+     * Get the request method for the HTTP request.
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return $this->method;
     }
 
     /**
