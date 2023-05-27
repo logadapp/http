@@ -1,18 +1,6 @@
 <?php
-// +------------------------------------------------------------------------+
-// | @author        : Michael Arawole (Logad Networks)
-// | @author_url    : https://www.logad.net
-// | @author_email  : logadscripts@gmail.com
-// | @date          : 19 Apr, 2023 9:23 AM
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2022 Logad Networks. All rights reserved.
-// +------------------------------------------------------------------------+
 
-// +----------------------------+
-// | 
-// +----------------------------+
-
-use Logadapp\Http\Request;
+use LogadApp\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase

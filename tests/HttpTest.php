@@ -1,6 +1,6 @@
 <?php
 
-use Logadapp\Http\Http;
+use LogadApp\Http\Http;
 use PHPUnit\Framework\TestCase;
 
 class HttpTest extends TestCase

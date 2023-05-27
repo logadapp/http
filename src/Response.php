@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Logadapp\Http;
+namespace LogadApp\Http;
 
 final class Response
 {

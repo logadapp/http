@@ -6,7 +6,7 @@
  * @author Michael Arawole <michael@logad.net>
  */
 
-namespace Logadapp\Http;
+namespace LogadApp\Http;
 
 final class Http
 {

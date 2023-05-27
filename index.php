@@ -12,9 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Logadapp\Http\Http;
-use Logadapp\Http\Response;
-use Logadapp\Http\Request;
+use LogadApp\Http\Http;
+use LogadApp\Http\Response;
+use LogadApp\Http\Request;
 
 $request = (new Request($_GET, $_POST, $_FILES, file_get_contents('php://input'), getallheaders()));
 

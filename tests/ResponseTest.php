@@ -1,5 +1,5 @@
 <?php
-use Logadapp\Http\Response;
+use LogadApp\Http\Response;
 use PHPUnit\Framework\TestCase;
 
 require '../vendor/autoload.php';
