@@ -254,7 +254,6 @@ final class Http
         return new self($url, 'OPTIONS', '', []);
     }
 
-
     /**
      * Send the HTTP request.
      * @return Http Returns the Http instance.
