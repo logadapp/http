@@ -215,6 +215,47 @@ final class Http
     }
 
     /**
+     * Create a new Http instance with the PUT method.
+     * @param string $url The URL for the HTTP request.
+     * @return Http Returns a new instance of Http with the PUT method.
+     */
+    public static function put(string $url): self
+    {
+        return new self($url, 'PUT', '', []);
+    }
+
+    /**
+     * Create a new Http instance with the PATCH method.
+     * @param string $url The URL for the HTTP request.
+     * @return Http Returns a new instance of Http with the PATCH method.
+     */
+    public static function patch(string $url): self
+    {
+        return new self($url, 'PATCH', '', []);
+    }
+
+    /**
+     * Create a new Http instance with the DELETE method.
+     * @param string $url The URL for the HTTP request.
+     * @return Http Returns a new instance of Http with the DELETE method.
+     */
+    public static function delete(string $url): self
+    {
+        return new self($url, 'DELETE', '', []);
+    }
+
+    /**
+     * Create a new Http instance with the OPTIONS method.
+     * @param string $url The URL for the HTTP request.
+     * @return Http Returns a new instance of Http with the OPTIONS method.
+     */
+    public static function options(string $url): self
+    {
+        return new self($url, 'OPTIONS', '', []);
+    }
+
+
+    /**
      * Send the HTTP request.
      * @return Http Returns the Http instance.
      */
