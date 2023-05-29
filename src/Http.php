@@ -10,6 +10,7 @@ namespace LogadApp\Http;
 
 final class Http
 {
+    private int $responseCode;
     private string $requestError = '';
 
     private array $responseHeaders;
@@ -287,6 +288,7 @@ final class Http
         $responseBody = curl_exec($curl);
         $responseHeaders = curl_getinfo($curl, CURLINFO_HEADER_OUT);
         $this->requestError = curl_error($curl);
+        $this->responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
         curl_close($curl);
 
         $this->responseBody = ($responseBody !== false) ? $responseBody : '';
@@ -312,6 +314,19 @@ final class Http
         return $this->responseHeaders;
     }
 
+    /**
+     * Get the response code from the HTTP request.
+     * @return int Returns the response code.
+     */
+    public function getResponseCode(): int
+    {
+        return $this->responseCode;
+    }
+
+    /**
+     * Get curl error
+     * @return string
+     */
     public function getRequestError():string
     {
         return $this->requestError;
