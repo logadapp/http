@@ -53,26 +53,35 @@ if (!empty($request->getQueryParams())) {
         ->withStatus(Response::HTTP_BAD_REQUEST)
         ->send();
 
-    $postResponse = Http::post('http://localhost')
-        ->setBody(json_encode([
-            'name' => 'Michael'
-        ]))
-        ->send();
+    try {
+        $postResponse = Http::post('http://localhost')
+            ->setBody(json_encode([
+                'name' => 'Michael'
+            ]))
+            ->send();
 
-    echo 'Body', PHP_EOL;
-    print_r($postResponse->getResponseBody());
-    echo PHP_EOL;
+        echo 'Body', PHP_EOL;
+        print_r($postResponse->getResponseBody());
+        echo PHP_EOL;
 
-    echo 'Headers', PHP_EOL;
-    print_r($postResponse->getResponseHeaders());
-    echo PHP_EOL;
+        echo 'Headers', PHP_EOL;
+        print_r($postResponse->getResponseHeaders());
+        echo PHP_EOL;
+    } catch (Exception $e) {
+        echo $e->getMessage(), PHP_EOL;
+    }
 
-    Http::build([
-        'url' => 'https://www.logad.net',
-    ])
-        ->setBody('Hello World')
-        ->setHeaders([
-            'Content-Type' => 'text/plain'
+
+    try {
+        Http::build([
+            'url' => 'https://www.logad.net',
         ])
-        ->send();
+            ->setBody('Hello World')
+            ->setHeaders([
+                'Content-Type' => 'text/plain'
+            ])
+            ->send();
+    } catch (Exception $e) {
+        echo $e->getMessage(), PHP_EOL;
+    }
 }
