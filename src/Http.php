@@ -283,6 +283,7 @@ final class Http
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $this->method,
             CURLOPT_FOLLOWLOCATION => true,
+            CURLINFO_HEADER_OUT => true
         ]);
 
         if (!empty($this->headers)) {
@@ -308,8 +309,27 @@ final class Http
         }
 
         $this->responseBody = $responseBody;
-        $this->responseHeaders = $responseHeaders;
+        $this->responseHeaders = $this->parseHeaders($responseHeaders);
         return $this;
+    }
+
+    /**
+     * Parse curl header_out
+     * @param string $headerString gotten from `CURLINFO_HEADER_OUT`
+     */
+    private function parseHeaders(string $headerString): array
+    {
+        $headers = [];
+        $headerLines = explode("\r\n", $headerString);
+        foreach ($headerLines as $line) {
+            $parts = explode(':', $line, 2);
+            if (count($parts) === 2) {
+                $key = trim($parts[0]);
+                $value = trim($parts[1]);
+                $headers[$key] = $value;
+            }
+        }
+        return $headers;
     }
 
     /**
