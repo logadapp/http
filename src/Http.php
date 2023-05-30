@@ -8,14 +8,16 @@
 
 namespace LogadApp\Http;
 
+use Exception;
+
 final class Http
 {
     private int $responseCode;
     private string $requestError = '';
 
-    private array $responseHeaders;
+    private array $responseHeaders = [];
 
-    private string $responseBody;
+    private string $responseBody = '';
 
     private int $timeout = 30;
 
@@ -99,18 +101,18 @@ final class Http
 
     /**
      * Set the request body for the HTTP request.
-     * @param mixed $body The request body for the HTTP request.
+     * @param string $value The request body for the HTTP request.
      * @return Http Returns the Http instance.
      */
-    public function setBody(string $body): self
+    public function setBody(string $value): self
     {
-        $this->body = $body;
+        $this->body = $value;
         return $this;
     }
 
     /**
      * Get the request body for the HTTP request.
-     * @return mixed
+     * @return string
      */
     public function getBody(): string
     {
@@ -125,7 +127,8 @@ final class Http
      */
     public function withHeader(string $name, string $value): self
     {
-        $this->headers[$name] = $value;
+        $this->headers[$name] = htmlentities($value, ENT_QUOTES, 'UTF-8');
+        ;
         return $this;
     }
 
@@ -142,12 +145,12 @@ final class Http
 
     /**
      * Set the bearer token for the HTTP request.
-     * @param string $token
+     * @param string $value bearer token
      * @return Http Returns the Http instance.
      */
-    public function withToken(string $token): self
+    public function withToken(string $value): self
     {
-        $this->headers['Authorization'] = 'Bearer ' . $token;
+        $this->headers['Authorization'] = 'Bearer ' . $value;
         return $this;
     }
 
@@ -258,9 +261,18 @@ final class Http
     /**
      * Send the HTTP request.
      * @return Http Returns the Http instance.
+     * @throws Exception
      */
     public function send(): self
     {
+        if (empty($this->url)) {
+            throw new \Exception('URL is not set.');
+        }
+
+        if (empty($this->method)) {
+            throw new \Exception('HTTP method is not set.');
+        }
+
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $this->url,
@@ -281,7 +293,7 @@ final class Http
             curl_setopt($curl, CURLOPT_HTTPHEADER, $formattedHeaders);
         }
 
-        if ($this->method === 'POST' && !empty($this->body)) {
+        if (!empty($this->body)) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->body);
         }
 
@@ -291,8 +303,12 @@ final class Http
         $this->responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
         curl_close($curl);
 
-        $this->responseBody = ($responseBody !== false) ? $responseBody : '';
-        $this->responseHeaders = ($responseHeaders !== false) ? $responseHeaders : [];
+        if ($responseBody === false || $responseHeaders === false) {
+            throw new Exception('Failed to execute cURL request: ' . $this->requestError);
+        }
+
+        $this->responseBody = $responseBody;
+        $this->responseHeaders = $responseHeaders;
         return $this;
     }
 
@@ -330,5 +346,20 @@ final class Http
     public function getRequestError():string
     {
         return $this->requestError;
+    }
+
+    /**
+     * Output the request and response details for debugging purposes.
+     *
+     * This method echoes the request headers, request body, response headers, and response body
+     * to the standard output, providing information for debugging and troubleshooting
+     * @return void
+     */
+    public function debug(): void
+    {
+        echo "Request Headers: " . var_export($this->headers, true) . "\n";
+        echo "Request Body: " . var_export($this->body, true) . "\n";
+        echo "Response Headers: " . var_export($this->responseHeaders, true) . "\n";
+        echo "Response Body: " . var_export($this->responseBody, true) . "\n";
     }
 }
