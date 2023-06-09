@@ -42,9 +42,9 @@ final class Http
     public function __construct(string $url = '', string $method = 'GET', string $body = '', array $headers = [])
     {
         $this->setUrl($url);
-        $this->method = $method;
-        $this->body = $body;
-        $this->headers = $headers;
+        $this->setMethod($method);
+        $this->setBody($body);
+        $this->setHeaders($headers);
     }
 
     /**
