@@ -12,7 +12,10 @@ use Exception;
 
 final class Http
 {
+    private bool $ignoreSsl = false;
+
     private int $responseCode;
+
     private string $requestError = '';
 
     private array $responseHeaders = [];
@@ -140,6 +143,16 @@ final class Http
     {
         $this->withHeader('Accept', 'application/json');
         $this->withHeader('Content-Type', 'application/json');
+        return $this;
+    }
+
+    /**
+     * Set the ignore ssl flag for the HTTP request.
+     * @return Http Returns the Http instance.
+     */
+    public function ignoreSsl():self
+    {
+        $this->ignoreSsl = true;
         return $this;
     }
 
@@ -296,6 +309,12 @@ final class Http
 
         if (!empty($this->body)) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->body);
+        }
+
+        // SSL verification
+        if ($this->ignoreSsl) {
+            // Disable SSL certificate verification
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         }
 
         $responseBody = curl_exec($curl);
