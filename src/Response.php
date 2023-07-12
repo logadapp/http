@@ -26,8 +26,13 @@ final class Response
     /* MORE */
 
     private string $body = '';
-    private int $status = self::HTTP_OK;
+    private int $status;
     private array $headers = [];
+
+    public function __construct()
+    {
+        $this->status = 200;
+    }
 
     public function withHeader(string $name, string $value): Response
     {
@@ -52,6 +57,25 @@ final class Response
     {
         $this->status = $statusCode;
         return $this;
+    }
+
+    /**
+     * Get Response content
+     * @return string
+     */
+    public function getContent():string
+    {
+        return $this->body;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
     }
 
     public function send():void
