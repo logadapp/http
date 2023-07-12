@@ -68,6 +68,11 @@ final class Response
         return $this->headers;
     }
 
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
     public function send():void
     {
         http_response_code($this->status);
