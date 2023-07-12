@@ -26,8 +26,13 @@ final class Response
     /* MORE */
 
     private string $body = '';
-    private int $status = self::HTTP_OK;
+    private int $status;
     private array $headers = [];
+
+    public function __construct()
+    {
+        $this->status = 200;
+    }
 
     public function withHeader(string $name, string $value): Response
     {
