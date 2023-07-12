@@ -54,6 +54,15 @@ final class Response
         return $this;
     }
 
+    /**
+     * Get Response content
+     * @return string
+     */
+    public function getContent():string
+    {
+        return $this->body;
+    }
+
     public function send():void
     {
         http_response_code($this->status);
