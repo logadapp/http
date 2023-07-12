@@ -63,6 +63,11 @@ final class Response
         return $this->body;
     }
 
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
     public function send():void
     {
         http_response_code($this->status);
