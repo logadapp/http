@@ -8,19 +8,19 @@
 declare(strict_types=1);
 namespace LogadApp\Http;
 
-use Rakit\Validation\Validator;
-
 final class Request
 {
     private string $uri;
     private string $method;
     private array $headers;
-    // private array $serverData;
+
     private array $get;
+
     private array $post;
+
     private array $files;
+
     private string $rawBody;
-    private string $validationError;
 
     public function __construct(array $get = [], array $post = [], array $files = [], string $rawBody = '', array $headers = [])
     {
@@ -103,31 +103,4 @@ final class Request
         }
         return $this;
     }*/
-
-    public function validate(array $data, array $rules):bool
-    {
-        $validator = new Validator;
-        $validator->setMessages([
-            'required' => ':attribute is required',
-            'email' => ':email is not valid'
-        ]);
-        $validation = $validator->make($data, $rules);
-        $validation->validate();
-        if ($validation->fails()) {
-            $errorMessage = "";
-            foreach ($validation->errors()->firstOfAll() as $errMsg) {
-                $errorMessage .= "$errMsg, ";
-            }
-            $errorMessage = rtrim($errorMessage, ', ');
-            $this->validationError = $errorMessage;
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public function getValidationError():string
-    {
-        return $this->validationError;
-    }
 }
