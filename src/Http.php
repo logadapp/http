@@ -6,6 +6,7 @@
  * @author Michael Arawole <michael@logad.net>
  */
 
+declare(strict_types=1);
 namespace LogadApp\Http;
 
 use Exception;
