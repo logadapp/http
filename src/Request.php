@@ -11,7 +11,9 @@ namespace LogadApp\Http;
 final class Request
 {
     private string $uri;
+
     private string $method;
+
     private array $headers;
 
     private array $get;
