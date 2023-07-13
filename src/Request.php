@@ -1,11 +1,10 @@
 <?php
-// +------------------------------------------------------------------------+
-// | @author        : Michael Arawole (Logad Networks)
-// | @author_url    : https://www.logad.net
-// | @author_email  : logadscripts@gmail.com
-// | @date          : 20 Jan, 2023 12:22AM
-// +------------------------------------------------------------------------+
 
+/**
+ * Request class
+ * @package Logadapp\Http
+ * @author Michael Arawole <michael@logad.net>
+ */
 declare(strict_types=1);
 namespace LogadApp\Http;
 
