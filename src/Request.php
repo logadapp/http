@@ -68,9 +68,9 @@ final class Request
         return $this->getHeader('Content-Type');
     }
 
-    public function getQueryParams(): array|string
+    public function getQueryParams(): array
     {
-        return is_null($name) ? $this->get : $this->get[$name] ?? '';
+        return $this->get;
     }
 
     public function getHeaders():array
