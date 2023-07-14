@@ -73,6 +73,11 @@ final class Request
         return $this->get;
     }
 
+    public function getParam(string $name, string $default = ''): string
+    {
+        return $this->get[$name] ?? $default;
+    }
+
     public function getHeaders():array
     {
         return $this->headers;
