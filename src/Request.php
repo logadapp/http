@@ -24,8 +24,13 @@ final class Request
 
     private string $rawBody;
 
-    public function __construct(array $get = [], array $post = [], array $files = [], string $rawBody = '', array $headers = [])
-    {
+    public function __construct(
+        array $get = [],
+        array $post = [],
+        array $files = [],
+        string $rawBody = '',
+        array $headers = []
+    ) {
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->uri = $_SERVER['REQUEST_URI'];
         $this->get = $get;
