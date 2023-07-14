@@ -90,7 +90,9 @@ final class Request
 
     public function getBody(): array
     {
-        return $this->getContentType() == 'application/json' ? json_decode($this->rawBody, true) : $this->getPost();
+        return
+            !empty($this->getPost()) ? $this->getPost()
+                : json_decode($this->rawBody, true);
     }
 
     public function getPost():array
