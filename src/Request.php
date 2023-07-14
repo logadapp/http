@@ -109,12 +109,4 @@ final class Request
     {
         return $this->rawBody;
     }
-
-    /*public function getParsedBody()
-    {
-        if (function_exists('cleanBody')) {
-            return cleanBody($this->getBody());
-        }
-        return $this;
-    }*/
 }
