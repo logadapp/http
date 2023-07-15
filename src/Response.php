@@ -33,12 +33,6 @@ final class Response
         $this->status = 200;
     }
 
-    public function withHeader(string $name, string $value): Response
-    {
-        $this->headers[$name] = $value;
-        return $this;
-    }
-
     public function json(array $data): Response
     {
         $this->setContent(json_encode($data));
@@ -67,14 +61,21 @@ final class Response
         return $this->body;
     }
 
+    public function withHeader(string $name, string $value): Response
+    {
+        $this->headers[$name] = $value;
+        return $this;
+    }
+
+    public function withHeaders(array $headers): self
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
     public function getHeaders(): array
     {
         return $this->headers;
-    }
-
-    public function getStatus(): int
-    {
-        return $this->status;
     }
 
     public function send():void
