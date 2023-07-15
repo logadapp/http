@@ -191,11 +191,12 @@ final class Http
      * Set the request method for the HTTP request.
      * @param string $method
      * @return $this
+     * @throws InvalidHttpMethodException
      */
     public function setMethod(string $method): self
     {
         if (!in_array($method, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'])) {
-            throw new \InvalidArgumentException('Invalid HTTP method.');
+            throw new InvalidHttpMethodException();
         }
 
         $this->method = $method;
