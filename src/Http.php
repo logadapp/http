@@ -325,7 +325,7 @@ final class Http
         curl_close($curl);
 
         if ($responseBody === false || $responseHeaders === false) {
-            throw new Exception('Failed to execute cURL request: ' . $this->requestError);
+            throw new RequestFailedException($this->requestError, $responseCode);
         }
 
         $this->response = (new Response())
