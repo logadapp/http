@@ -18,6 +18,7 @@ final class Http
 {
     private bool $ignoreSsl = false;
 
+    private Response $response;
 
     private string $requestError = '';
 
