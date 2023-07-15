@@ -10,6 +10,9 @@ declare(strict_types=1);
 namespace LogadApp\Http;
 
 use Exception;
+use LogadApp\Http\Exception\InvalidArgumentException;
+use LogadApp\Http\Exception\InvalidHttpMethodException;
+use LogadApp\Http\Exception\RequestFailedException;
 
 final class Http
 {
