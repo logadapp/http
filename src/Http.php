@@ -356,15 +356,6 @@ final class Http
     }
 
     /**
-     * Get the response code from the HTTP request.
-     * @return int Returns the response code.
-     */
-    public function getResponseCode(): int
-    {
-        return $this->responseCode;
-    }
-
-    /**
      * Get curl error
      * @return string
      */
