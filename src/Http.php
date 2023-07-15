@@ -274,10 +274,10 @@ final class Http
 
     /**
      * Send the HTTP request.
-     * @return Http Returns the Http instance.
+     * @return Response Returns the Http instance.
      * @throws Exception
      */
-    public function send(): self
+    public function send(): Response
     {
         if (empty($this->url)) {
             throw new \Exception('URL is not set.');
