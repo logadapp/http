@@ -375,7 +375,7 @@ final class Http
     {
         echo "Request Headers: " . var_export($this->headers, true) . "\n";
         echo "Request Body: " . var_export($this->body, true) . "\n";
-        echo "Response Headers: " . var_export($this->responseHeaders, true) . "\n";
-        echo "Response Body: " . var_export($this->responseBody, true) . "\n";
+        echo "Response Headers: " . var_export($this->response->getHeaders(), true) . "\n";
+        echo "Response Body: " . var_export($this->response->getContent(), true) . "\n";
     }
 }
