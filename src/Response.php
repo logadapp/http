@@ -52,6 +52,11 @@ final class Response
         return $this;
     }
 
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
     /**
      * Get Response content
      * @return string
