@@ -356,15 +356,6 @@ final class Http
     }
 
     /**
-     * Get the response body from the HTTP request.
-     * @return string Returns the response body.
-     */
-    public function getResponseBody(): string
-    {
-        return $this->responseBody;
-    }
-
-    /**
      * Get the response headers from the HTTP request.
      * @return array Returns the response headers.
      */
