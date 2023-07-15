@@ -320,17 +320,20 @@ final class Http
 
         $responseBody = curl_exec($curl);
         $responseHeaders = curl_getinfo($curl, CURLINFO_HEADER_OUT);
+        $responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
         $this->requestError = curl_error($curl);
-        $this->responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
         curl_close($curl);
 
         if ($responseBody === false || $responseHeaders === false) {
             throw new Exception('Failed to execute cURL request: ' . $this->requestError);
         }
 
-        $this->responseBody = $responseBody;
-        $this->responseHeaders = $this->parseHeaders($responseHeaders);
-        return $this;
+        $this->response = (new Response())
+            ->setContent($responseBody)
+            ->withHeaders($this->parseHeaders($responseHeaders))
+            ->withStatus($responseCode);
+
+        return $this->response;
     }
 
     /**
