@@ -22,10 +22,6 @@ final class Http
 
     private string $requestError = '';
 
-    private array $responseHeaders = [];
-
-    private string $responseBody = '';
-
     private int $timeout = 30;
 
     private string $method;
