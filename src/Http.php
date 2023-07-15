@@ -280,11 +280,11 @@ final class Http
     public function send(): Response
     {
         if (empty($this->url)) {
-            throw new \Exception('URL is not set.');
+            throw new InvalidArgumentException('URL is not set.');
         }
 
         if (empty($this->method)) {
-            throw new \Exception('HTTP method is not set.');
+            throw new InvalidArgumentException('HTTP method is not set.');
         }
 
         $curl = curl_init();
