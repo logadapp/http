@@ -110,6 +110,11 @@ final class Http
      */
     public function setBody(string|array $value): self
     {
+        if (is_array($value)) {
+            $value = json_encode($value);
+            $this->isJson();
+        }
+
         $this->body = $value;
         return $this;
     }
