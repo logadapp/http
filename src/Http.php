@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace LogadApp\Http;
 
 use Exception;
+use InvalidArgumentException;
 
 final class Http
 {
@@ -37,10 +38,10 @@ final class Http
      * Http constructor.
      * @param string $url The URL for the HTTP request.
      * @param string $method The HTTP request method.
-     * @param string $body The request body for the HTTP request.
+     * @param string|array $body The request body for the HTTP request.
      * @param array $headers The headers for the HTTP request.
      */
-    public function __construct(string $url = '', string $method = 'GET', string $body = '', array $headers = [])
+    public function __construct(string $url = '', string $method = 'GET', string|array $body = '', array $headers = [])
     {
         $this->setUrl($url);
         $this->setMethod($method);
@@ -137,7 +138,6 @@ final class Http
     public function withHeader(string $name, string $value): self
     {
         $this->headers[$name] = htmlentities($value, ENT_QUOTES, 'UTF-8');
-        ;
         return $this;
     }
 
@@ -201,7 +201,7 @@ final class Http
     public function setMethod(string $method): self
     {
         if (!in_array($method, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'])) {
-            throw new \InvalidArgumentException('Invalid HTTP method.');
+            throw new InvalidArgumentException('Invalid HTTP method.');
         }
 
         $this->method = $method;
@@ -232,7 +232,7 @@ final class Http
      * @param string $url The URL for the HTTP request.
      * @return Http Returns a new instance of Http with the POST method.
      */
-    public static function post(string $url, string|array $body): self
+    public static function post(string $url, string|array $body = []): self
     {
         return new self($url, 'POST', $body, []);
     }
@@ -371,7 +371,7 @@ final class Http
      * @since 0.4.3
      * @return mixed
      */
-    public function body(): mixed
+    public function body(): string
     {
         return ($this->responseBody);
     }
