@@ -105,10 +105,10 @@ final class Http
 
     /**
      * Set the request body for the HTTP request.
-     * @param string $value The request body for the HTTP request.
+     * @param string|array $value The request body for the HTTP request.
      * @return Http Returns the Http instance.
      */
-    public function setBody(string $value): self
+    public function setBody(string|array $value): self
     {
         $this->body = $value;
         return $this;
