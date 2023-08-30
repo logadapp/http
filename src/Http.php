@@ -232,9 +232,9 @@ final class Http
      * @param string $url The URL for the HTTP request.
      * @return Http Returns a new instance of Http with the POST method.
      */
-    public static function post(string $url): self
+    public static function post(string $url, string|array $body): self
     {
-        return new self($url, 'POST', '', []);
+        return new self($url, 'POST', $body, []);
     }
 
     /**
