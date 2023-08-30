@@ -395,6 +395,16 @@ final class Http
     }
 
     /**
+     * Alias for getResponseCode()
+     * @since 0.4.3
+     * @return int
+     */
+    public function status(): int
+    {
+        return $this->getResponseCode();
+    }
+
+    /**
      * Get curl error
      * @return string
      */
