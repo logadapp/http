@@ -367,6 +367,16 @@ final class Http
     }
 
     /**
+     * Alias for getResponseBody()
+     * @since 0.4.3
+     * @return mixed
+     */
+    public function body(): mixed
+    {
+        return ($this->responseBody);
+    }
+
+    /**
      * Get the response headers from the HTTP request.
      * @return array Returns the response headers.
      */
