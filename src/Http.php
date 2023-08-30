@@ -123,7 +123,7 @@ final class Http
      * Get the request body for the HTTP request.
      * @return string
      */
-    public function getBody(): string
+    public function getRequestBody(): string
     {
         return $this->body;
     }
