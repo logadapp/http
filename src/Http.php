@@ -386,6 +386,16 @@ final class Http
     }
 
     /**
+     * Alias for getResponseHeaders()
+     * @since 0.4.3
+     * @return array
+     */
+    public function headers(): array
+    {
+        return $this->getResponseHeaders();
+    }
+
+    /**
      * Get the response code from the HTTP request.
      * @return int Returns the response code.
      */
