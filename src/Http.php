@@ -105,11 +105,16 @@ final class Http
 
     /**
      * Set the request body for the HTTP request.
-     * @param string $value The request body for the HTTP request.
+     * @param string|array $value The request body for the HTTP request.
      * @return Http Returns the Http instance.
      */
-    public function setBody(string $value): self
+    public function setBody(string|array $value): self
     {
+        if (is_array($value)) {
+            $value = json_encode($value);
+            $this->isJson();
+        }
+
         $this->body = $value;
         return $this;
     }
@@ -118,7 +123,7 @@ final class Http
      * Get the request body for the HTTP request.
      * @return string
      */
-    public function getBody(): string
+    public function getRequestBody(): string
     {
         return $this->body;
     }
@@ -227,9 +232,9 @@ final class Http
      * @param string $url The URL for the HTTP request.
      * @return Http Returns a new instance of Http with the POST method.
      */
-    public static function post(string $url): self
+    public static function post(string $url, string|array $body): self
     {
-        return new self($url, 'POST', '', []);
+        return new self($url, 'POST', $body, []);
     }
 
     /**
@@ -362,6 +367,16 @@ final class Http
     }
 
     /**
+     * Alias for getResponseBody()
+     * @since 0.4.3
+     * @return mixed
+     */
+    public function body(): mixed
+    {
+        return ($this->responseBody);
+    }
+
+    /**
      * Get the response headers from the HTTP request.
      * @return array Returns the response headers.
      */
@@ -371,12 +386,32 @@ final class Http
     }
 
     /**
+     * Alias for getResponseHeaders()
+     * @since 0.4.3
+     * @return array
+     */
+    public function headers(): array
+    {
+        return $this->getResponseHeaders();
+    }
+
+    /**
      * Get the response code from the HTTP request.
      * @return int Returns the response code.
      */
     public function getResponseCode(): int
     {
         return $this->responseCode;
+    }
+
+    /**
+     * Alias for getResponseCode()
+     * @since 0.4.3
+     * @return int
+     */
+    public function status(): int
+    {
+        return $this->getResponseCode();
     }
 
     /**
