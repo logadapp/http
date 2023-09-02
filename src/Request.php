@@ -53,6 +53,22 @@ final class Request
         return $headers;
     }*/
 
+    /**
+     * Create instance from global variables
+     * @since 0.4.4
+     * @return self
+     */
+    public static function createFromGlobals(): self
+    {
+        return new self(
+            $_GET,
+            $_POST,
+            $_FILES,
+            file_get_contents('php://input'),
+            getallheaders()
+        );
+    }
+
     public function getUri(): string
     {
         return $this->uri;
